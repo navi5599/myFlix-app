@@ -1,7 +1,6 @@
 const express = require('express'),
-  morgan = require('morgan'),
-  path = require('path');
-
+  morgan = require('morgan');
+  
 const app = express();
 
 let topMovies = [
@@ -38,6 +37,8 @@ let topMovies = [
 
 ];
 
+app.use(express.static('public'));
+
 app.use(morgan('common'));
 
 app.get('/', (req, res) => {
@@ -46,13 +47,6 @@ app.get('/', (req, res) => {
 
 app.get('/movies', (req, res) => {
   res.json(topMovies);
-});
-
-// get the documentation.html with static-not working!!
-//app.use(express.static('public'));
-
-app.get('/documentation', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'documentation.html'));
 });
 
 // error handling code
