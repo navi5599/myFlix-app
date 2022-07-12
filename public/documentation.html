@@ -5,10 +5,392 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>myFlix</title>
+  <link rel="stylesheet" href="style.css" type="text/css"> 
 </head>
 <body>
-  <h1>myFlix API</h1>
-  <p>This is an REST API for application called myFlix that interacts with database and store data about different movies</p>
-  <p>You will be able to Sing up,update your personal information,and create a list of your favorite movies</p>
+  <h1>myFlix API Documentation</h1>
+  <div class="intro">
+    <p>This is an REST API for application called myFlix that interacts with database and store data about different movies</p>
+    <p>You will be able to Sing up,update your personal information,and create a list of your favorite movies</p>
+  </div><br>
+
+  <div class="first_section">
+    <button>POST</button>
+    <h4 class="url"> /users</h4>
+    <p><span class="bold">Description:</span>This endpoint allows users to register.Endpoint returns a JSON object with few key values.For key "name" it returns string,for "favorite movies" array, and for an "id" string.</p>
+    <p><span class="bold">Query Parameters:</span> None</p>
+    <div class="response_footer">
+      <div class="respose_1">
+        <p><span class="bold">Expected request data:</span> JSON object with data about user. <span class="required">Required</span>: "name"</p>
+        <h4>Example:</h4> 
+        <code class="code">
+            {<br>
+              "name": "John Smith",<br>
+              "favorite movies": []<br>
+            }</p>
+        </code>
+        
+      </div>
+      
+      <div class="response_2">
+        <p><span class="bold">Expected response data:</span> JSON object with data about user which includes automatic generated ID</p>
+        <h4>Example:</h4>
+        <code class="code">
+          {<br>
+            "name": "John Smith",<br>
+            "id": "8a757bb9-2eec-46bf-86f0-443ff742cf3a"<br>
+            }
+        </code>
+      </div>
+    </div>
+
+    <p class="bold">Response status codes:</p>
+    <div class="status_codes">
+      <div>
+        <button>201</button>
+        <p class="url">Created- New user has been added</p>
+      </div>
+      <div>
+        <button>400</button>
+        <p class="url">Bad request- User need names</p>
+      </div>
+      <div>
+        <button>500</button>
+        <p class="url">Internal server error- Something went wrong</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="second_section">
+    <button>PUT</button>
+    <h4 class="url"> /users/:id</h4>
+    <p><span class="bold">Description:</span> This endpoint allows users to update their info,such as name.Endpoint returns a JSON object with few key values.For key "name" it returns string,for "favorite movies" array, and for an "id" integer.</p>
+    <p><span class="bold">Query Parameters:</span> :id,</p>
+    <div class="response_footer">
+      <div class="respose_1">
+        <p><span class="bold">Expected request data:</span> JSON object with data about user. <span class="required">Required</span>: :id, "name"</p>
+        <h4>Example:</h4> 
+        <p>localhost:8080/users/2</p><br>
+        <code class="code">
+          {<br>
+            "name": "John Doe"<br>
+          }
+        </code>
+      </div>
+      
+      <div class="response_2">
+        <p><span class="bold">Expected response data:</span> JSON object with data about user which includes,"id" with integer value, "name" with string and "favorite movies" with an array.</p>
+        <h4>Example:</h4>
+        <code class="code">
+          {<br>
+            "id": 2,<br>
+            "name": "John Doe",<br>
+            "favoriteMovies": [<br>
+                "Venom"<br>
+            ]<br>
+          }
+        </code>
+      </div>
+    </div>
+
+    <p class="bold">Response status codes:</p>
+    <div class="status_codes">
+      <div>
+        <button>200</button>
+        <p class="url">OK- New user has been added</p>
+      </div>
+      <div>
+        <button>400</button>
+        <p class="url">Bad request- No such user found</p>
+      </div>
+      <div>
+        <button>500</button>
+        <p class="url">Internal server error- Something went wrong</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="third_section">
+    <button>DELETE</button>
+    <h4 class="url"> /users/:id</h4>
+    <p><span class="bold">Description:</span> This endpoint allows users remove their account.Endpoint returns a confirmation message that users account has been deleted.</p>
+    <p><span class="bold">Query Parameters:</span> :id,</p>
+    <div class="response_footer">
+      <div class="respose_1">
+        <p><span class="bold">Expected request data:</span>  <span class="required">Required</span>: :id</p>
+        <h4>Example:</h4> 
+        <p>localhost:8080/users/2</p><br>
+      </div>
+      
+      <div class="response_2">
+        <p><span class="bold">Expected response data:</span> A confirmation message that users account has been deleted.</p>
+        <h4>Example:</h4>
+        <p>John Doe's account has been deleted!</p>
+      </div>
+    </div>
+
+    <p class="bold">Response status codes:</p>
+    <div class="status_codes">
+      <div>
+        <button>200</button>
+        <p class="url">OK- Users account has been deleted</p>
+      </div>
+      <div>
+        <button>400</button>
+        <p class="url">Bad request- No such user found!</p>
+      </div>
+      <div>
+        <button>500</button>
+        <p class="url">Internal server error- Something went wrong</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="fourth_section">
+    <button>POST</button>
+    <h4 class="url"> /users/:id/:movieTitle</h4>
+    <p><span class="bold">Description:</span>This endpoint allows users to add movie to their favorite list.Endpoint returns a confirmation message that movie has been successfully added.</p>
+    <p><span class="bold">Query Parameters:</span> :id, :movieTitle</p>
+    <div class="response_footer">
+      <div class="respose_1">
+        <p><span class="bold">Expected request data:</span> <span class="required">Required</span>: :id, :movietitle</p>
+        <h4>Example:</h4> 
+        <p>localhost:8080/users/1/New%20Movie</p>
+      </div>
+      
+      <div class="response_2">
+        <p><span class="bold">Expected response data:</span> A confirmation message that movie has been added to the users list</p>
+        <h4>Example:</h4>
+        <p>New Movie has been added to John's array</p>
+      </div>
+    </div>
+
+    <p class="bold">Response status codes:</p>
+    <div class="status_codes">
+      <div>
+        <button>200</button>
+        <p class="url">OK- Movie has been added to users list!</p>
+      </div>
+      <div>
+        <button>400</button>
+        <p class="url">Bad request- No such user found!</p>
+      </div>
+      <div>
+        <button>500</button>
+        <p class="url">Internal server error- Something went wrong</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="fourth_section">
+    <button>DELETE</button>
+    <h4 class="url"> /users/:id/:movieTitle</h4>
+    <p><span class="bold">Description:</span> This endpoint allows users to remove movie from their list.Endpoint returns a confirmation message that users selected movie has been removed from the list.</p>
+    <p><span class="bold">Query Parameters:</span> :id, :movieTitle</p>
+    <div class="response_footer">
+      <div class="respose_1">
+        <p><span class="bold">Expected request data:</span>  <span class="required">Required</span>: :id</p>
+        <h4>Example:</h4> 
+        <p>localhost:8080/users/2/Venom</p><br>
+      </div>
+      
+      <div class="response_2">
+        <p><span class="bold">Expected response data:</span> A confirmation message that selected movie has been deleted from the list.</p>
+        <h4>Example:</h4>
+        <p>Venom has been Removed from Johanna's array!</p>
+      </div>
+    </div>
+
+    <p class="bold">Response status codes:</p>
+    <div class="status_codes">
+      <div>
+        <button>200</button>
+        <p class="url">OK- Movie has been removed from users list!</p>
+      </div>
+      <div>
+        <button>400</button>
+        <p class="url">Bad request- User need names</p>
+      </div>
+      <div>
+        <button>500</button>
+        <p class="url">Internal server error- Something went wrong</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="fifth_section">
+    <button>GET</button>
+    <h4 class="url"> /movies</h4>
+    <p><span class="bold">Description:</span> This endpoint allows users to get whole list of movies.Endpoint returns an array with list of objects. Each object contains data about movies.</p>
+    <p><span class="bold">Query Parameters:</span> None</p>
+    <div class="response_footer">
+      <div class="respose_1">
+        <p><span class="bold">Expected request data:</span>  <span class="required">Required</span>: /movies</p>
+        <h4>Example:</h4> 
+        <p>localhost:8080/movies</p><br>
+      </div>
+      
+      <div class="response_2">
+        <p><span class="bold">Expected response data:</span> An array with list of objects. Each object contains data about movies. Every key is described with value of a string.</p>
+        <h4>Example:</h4>
+        <code class="code">
+          [<br>
+          {<br>
+            "Title": "Venom",<br>
+            "Description": "A failed reporter is bonded to an alien entity, one of many symbiotes who have invaded Earth. But the being takes a liking to Earth and decides to protect it.",<br>
+            "Genre": {<br>
+              "Name": "Action",<br>
+              "Description": "Action film is a film genre in which the protagonist is thrust into a series of events that typically involve violence and physical feats."<br>
+              },<br>
+          "Director": {<br>
+              "Name": "Ruben Fleischer",<br>
+              "Bio": "Ruben Fleischer was born on October 31, 1974 in Washington, District of Columbia, USA. He is a producer and director, known for Zombieland (2009), Gangster Squad (2013) and Venom (2018). He has been married to Holly Shakoor Fleischer since November 10, 2012."<br>
+          },<br>
+          "ImageURL": "https://i.postimg.cc/Cxgdf44X/venom.jpg",<br>
+          "Year": "2018"<br>
+        }<br>
+        ...
+        </code>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="sixth_section">
+    <button>GET</button>
+    <h4 class="url"> /movies/:title</h4>
+    <p><span class="bold">Description:</span> This endpoint allows users to search a movie by title.Endpoint returns an object with data about specific movie.</p>
+    <p><span class="bold">Query Parameters:</span> :title</p>
+    <div class="response_footer">
+      <div class="respose_1">
+        <p><span class="bold">Expected request data:</span>  <span class="required">Required</span>: :title</p>
+        <h4>Example:</h4> 
+        <p>localhost:8080/movies/trainspotting</p><br>
+      </div>
+      
+      <div class="response_2">
+        <p><span class="bold">Expected response data:</span> An object containing data about specific movie. Every key is described with value of a string.</p>
+        <h4>Example:</h4>
+        <code class="code">
+          {<br>
+            "Title": "Trainspotting",<br>
+            "Description": "Renton, deeply immersed in the Edinburgh drug scene, tries to clean up and get out, despite the allure of the drugs and influence of friends.",<br>
+            "Genre": {<br>
+                "Name": "Drama",<br>
+                "Description": "Drama Films are serious presentations or stories with settings or life situations that portray realistic characters in conflict with either themselves, others, or forces of nature. A dramatic film shows us human beings at their best, their worst, and everything in-between."<br>
+            },<br>
+            "Director": {<br>
+                "Name": "Danny Boyle",<br>
+                "Bio": "Daniel Francis Boyle is a British filmmaker, producer and writer from Radcliffe, Greater Manchester. He is known for directing 28 Days Later, 127 Hours, Trainspotting, T2 Trainspotting, Slumdog Millionaire, Millions, Shallow Grave, The Beach, Yesterday and Steve Jobs. He won many awards for Slumdog Millionaire."<br>
+            },<br>
+            "ImageURL": "https://m.media-amazon.com/images/I/71Nclw8LvIL._AC_SY606_.jpg",<br>
+            "Year": "1996"<br>
+          }
+        </code>
+        
+      </div>
+    </div>
+
+    <p class="bold">Response status codes:</p>
+    <div class="status_codes">
+      <div>
+        <button>201</button>
+        <p class="url">OK- JSON object</p>
+      </div>
+      <div>
+        <button>400</button>
+        <p class="url">Bad request- Movie not found!</p>
+      </div>
+      <div>
+        <button>500</button>
+        <p class="url">Internal server error- Something went wrong</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="seventh_section">
+    <button>GET</button>
+    <h4 class="url"> /movies/genre/:genreName</h4>
+    <p><span class="bold">Description:</span> This endpoint allows users to search for a genre.Endpoint returns an object with data about specific genre.</p>
+    <p><span class="bold">Query Parameters:</span> :genreName</p>
+    <div class="response_footer">
+      <div class="respose_1">
+        <p><span class="bold">Expected request data:</span>  <span class="required">Required</span>: :genreName</p>
+        <h4>Example:</h4> 
+        <p>localhost:8080/movies/genre/Mystery</p><br>
+      </div>
+      
+      <div class="response_2">
+        <p><span class="bold">Expected response data:</span> An object containing data about specific genre. Every key is described with value of a string.</p>
+        <h4>Example:</h4>
+        <code class="code">
+          {<br>
+            "Name": "Mystery",<br>
+            "Description": "A mystery film is a genre of film that revolves around the solution of a problem or a crime. It focuses on the efforts of the detective, private investigator or amateur sleuth to solve the mysterious circumstances of an issue by means of clues, investigation, and clever deduction."<br>
+          }
+        </code>
+        
+      </div>
+    </div>
+
+    <p class="bold">Response status codes:</p>
+    <div class="status_codes">
+      <div>
+        <button>200</button>
+        <p class="url">OK- JSON object</p>
+      </div>
+      <div>
+        <button>400</button>
+        <p class="url">Bad request- Genre not found!</p>
+      </div>
+      <div>
+        <button>500</button>
+        <p class="url">Internal server error- Something went wrong</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="eight_section">
+    <button>GET</button>
+    <h4 class="url"> /movies/directors/:directorName</h4>
+    <p><span class="bold">Description:</span> This endpoint allows users to search for a specific directors.Endpoint returns an object with data about specific director.</p>
+    <p><span class="bold">Query Parameters:</span> :directorName</p>
+    <div class="response_footer">
+      <div class="respose_1">
+        <p><span class="bold">Expected request data:</span>  <span class="required">Required</span>: :directorName</p>
+        <h4>Example:</h4> 
+        <p>localhost:8080/movies/directors/Danny%20Boyle</p><br>
+      </div>
+      
+      <div class="response_2">
+        <p><span class="bold">Expected response data:</span> An object containing data about specific director. Every key is described with value of a string.</p>
+        <h4>Example:</h4>
+        <code class="code">
+          {<br>
+            "Name": "Danny Boyle",<br>
+            "Bio": "Daniel Francis Boyle is a British filmmaker, producer and writer from Radcliffe, Greater Manchester. He is known for directing 28 Days Later, 127 Hours, Trainspotting, T2 Trainspotting, Slumdog Millionaire, Millions, Shallow Grave, The Beach, Yesterday and Steve Jobs. He won many awards for Slumdog Millionaire."<br>
+          }
+        </code>
+        
+      </div>
+    </div>
+
+    <p class="bold">Response status codes:</p>
+    <div class="status_codes">
+      <div>
+        <button>200</button>
+        <p class="url">OK- JSON object</p>
+      </div>
+      <div>
+        <button>400</button>
+        <p class="url">Bad request- Director not found!</p>
+      </div>
+      <div>
+        <button>500</button>
+        <p class="url">Internal server error- Something went wrong</p>
+      </div>
+    </div>
+  </div>
+  
 </body>
 </html>
