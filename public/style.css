@@ -1,4 +1,6 @@
-
+body {
+  font-family: 'Roboto', sans-serif;
+}
 
 .intro, .status_codes {
   border-bottom: 2px solid rgb(106, 105, 105);
@@ -8,8 +10,10 @@
   display: inline-block;
   padding-left: 10px;
 }
+
 .bold {
-  font-weight: bold;
+  text-transform: uppercase;
+  font-weight: 900;
 }
 
 .required {
