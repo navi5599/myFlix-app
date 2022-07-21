@@ -110,7 +110,7 @@ app.delete('/users/:Username', (req, res) => {
       if (!user) {
         res.status(400).send(req.params.Username + ' was not found');
       } else {
-        res.status(200).send(req.params.Username + ' account was removed.');
+        res.status(200).send(req.params.Username + ' account has been deleted!');
       }
     })
     .catch((err) => {
