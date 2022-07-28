@@ -31,7 +31,6 @@ const { check, validationResult } = require('express-validator');
 // CREATE
 // Add new user
 app.post('/users',  [
-  passport.authenticate('jwt', { session: false }),
   check('Username', 'Username requires minimum 5 characters').isLength({min: 5}),
   check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
   check('Password', 'Password is required').not().isEmpty(),
