@@ -19,7 +19,7 @@ mongoose.connect( process.env.connection_url, { useNewUrlParser: true, useUnifie
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(express.static('public')); 
+app.use(express.static('public'));
 
 app.use(morgan('common'));
 
@@ -46,7 +46,7 @@ app.post('/users',  [
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.array() });
   }
-  
+
   let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
@@ -104,7 +104,7 @@ app.put('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { sessi
   Users.findOneAndUpdate({ Username: req.params.Username }, {
      $push: { FavoriteMovies: req.params.MovieID }
    },
-   { new: true }, 
+   { new: true },
   (err, updatedUser) => {
     if (err) {
       console.error(err);
@@ -121,7 +121,7 @@ app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { se
   Users.findOneAndUpdate({ Username: req.params.Username }, {
      $pull: { FavoriteMovies: req.params.MovieID }
    },
-   { new: true }, 
+   { new: true },
   (err, updatedUser) => {
     if (err) {
       console.error(err);
@@ -155,7 +155,7 @@ app.get('/', (req, res) => {
 });
 
 // Get all movies
-app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.get('/movies', (req, res) => { // BRING BACK AUTHENTICATION JWT TOKEN
   Movies.find()
     .then((movies) => {
       res.status(200).json(movies);
