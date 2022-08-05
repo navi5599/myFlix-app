@@ -17,7 +17,7 @@ MongoDB v5.0.7
 
 ### Instructions:
 
- >Please see /public/documentation.html
+ >Please see /api-doc
 
  <img src="/img/image.png" alt="Alt text" style="display: inline-block; margin: 0 auto; max-width: 800px">
 

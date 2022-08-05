@@ -1,0 +1,387 @@
+openapi: 3.0.3
+info:
+  title: myFlix API Documentation 1.0
+  description: This is an REST API for application called myFlix that interacts with database and store data about different movies. You will be able to Sing up,update your personal information,and create list of your favorite movies
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    email: ivkelava10@gmail.com
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: https://my-flix-app-1910.herokuapp.com/
+tags:
+- name: Movies
+  description: Everything about Movies
+- name: Users
+  description: Operations about user
+paths:
+  /users:
+    post:
+      tags:
+        - Users
+      summary: Create new user
+      description: This endpoint allows users to register
+      requestBody:
+        description: Created user object
+        content: 
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/User'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: Bad request- User already exists
+        500:
+          description: Internal server error- Something went wrong
+    get:
+      tags:
+        - Users
+      summary: Get all users
+      description: This endpoint allows users to get a list of all users
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        500:
+          description: Internal server error- Something went wrong
+  /user/login:
+    post:
+      tags:
+        - Users
+      summary: Logs user into the system
+      description: ''
+      parameters:
+        - name: username
+          in: query
+          description: The user name for login
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: The password for login in clear text
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+  /users/{username}:
+    put:
+      tags:
+        - Users
+      summary: Update user info
+      description: This endpoint allows users to update their data
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content: 
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/User'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        500:
+          description: Internal server error- Something went wrong
+    delete:
+      tags:
+        - Users
+      summary: Delete user account
+      description: This endpoint allows users to remove their account
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Users account has been deleted
+        400:
+          description: Bad request- Username was not found
+        500:
+          description: Internal server error- Something went wrong
+    get:
+      tags:
+        - Users
+      summary: Search for a User 
+      description: This endpoint allows users to search for users by their username
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        500:
+          description: Internal server error- Something went wrong
+  /users/{username}/movies/{MovieID}:
+    post:
+      tags:
+        - Users
+      summary: Add movies to favorites
+      description: This endpoint allows users to add movies to their favorite list
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: MovieID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Updated users array list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        500:
+          description: Internal server error- Something went wrong
+    delete:
+      tags:
+        - Users
+      summary: Remove movies from favorites
+      description: This endpoint allows users to remove movies from their favorite list
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: MovieID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Updated users array list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        500:
+          description: Internal server error- Something went wrong
+  /movies:
+    get:
+      tags:
+        - Movies
+      summary: Get list of movies
+      description: This endpoint allows users to get a list of all movies
+      responses:
+        200:
+          description: Updated users array list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movies'
+        500:
+          description: Internal server error- Something went wrong
+  /movies/{title}:
+    get:
+      tags:
+        - Movies
+      summary: Get movie by name
+      description: This endpoint allows users to search for a movies by name
+      parameters:
+        - name: title
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/singleMovie'
+        500:
+          description: Internal server error- Something went wrong
+  /movies/genre/{genreName}:
+    get:
+      tags:
+        - Movies
+      summary: Get genre by name
+      description: This endpoint allows users to search for specific genre
+      parameters:
+        - name: genreName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Genres'
+        500:
+          description: Internal server error- Something went wrong
+  /movies/directors/{directorName}:
+    get:
+      tags:
+        - Movies
+      summary: Get director by name
+      description: This endpoint allows users to search for specific director
+      parameters:
+        - name: directorName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Directors'
+        500:
+          description: Internal server error- Something went wrong
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 8a757bb9-2eec-46bf-86f0-443ff742cf3a
+        name:
+          type: string
+          example: John Smith
+        userame:
+          type: string
+          example: jsmith
+        email:
+          type: string
+          example: jsmith@email.com
+        password:
+          type: string
+          example: '12345'
+        birthday:
+          type: string
+        favoriteMovies:
+          type: array
+          items:
+            type: string
+            example: movieID_1, movieID_2
+    Movies:
+      type: array
+      items:
+        type: object
+        properties:
+          title: 
+            type: string
+            example: Venom
+          description:
+            type: string
+            example: A failed reporter is bonded to an alien entity, one of many symbiotes who have invaded Earth. But the being takes a liking to Earth and decides to protect it.
+          genre:
+            type: object
+            properties:
+              name:
+                type: string
+                example: Action
+              description:
+                type: string
+                example: Action film is a film genre in which the protagonist is thrust into a series of events that typically involve violence and physical feats.
+          director:
+            type: object
+            properties:
+              name:
+                type: string
+                example: Ruben Fleischer
+              bio:
+                type: string
+                example: Ruben Fleischer was born on October 31, 1974 in Washington, District of Columbia, USA. He is a producer and director, known for Zombieland (2009), Gangster Squad (2013) and Venom (2018). He has been married to Holly Shakoor Fleischer since November 10, 2012.
+          imageUrl:
+            type: string
+            example: https://i.postimg.cc/Cxgdf44X/venom.jpg
+          year:
+            type: number
+            example: 2018
+    singleMovie:
+      type: object
+      properties:
+        title: 
+          type: string
+          example: Trainspotting
+        description:
+          type: string
+          example: Renton, deeply immersed in the Edinburgh drug scene, tries to clean up and get out, despite the allure of the drugs and influence of friends.
+        genre:
+          type: object
+          properties:
+            name:
+              type: string
+              example: Drama
+            description:
+              type: string
+              example: Drama Films are serious presentations or stories with settings or life situations that portray realistic characters in conflict with either themselves, others, or forces of nature. A dramatic film shows us human beings at their best, their worst, and everything in-between.
+        director:
+          type: object
+          properties:
+            name:
+              type: string
+              example: Danny Boyle
+            bio:
+              type: string
+              example: Daniel Francis Boyle is a British filmmaker, producer and writer from Radcliffe, Greater Manchester. He is known for directing 28 Days Later, 127 Hours, Trainspotting, T2 Trainspotting, Slumdog Millionaire, Millions, Shallow Grave, The Beach, Yesterday and Steve Jobs. He won many awards for Slumdog Millionaire.
+        imageUrl:
+          type: string
+          example: https://i.postimg.cc/Cxgdf44X/venom.jpg
+        year:
+          type: number
+          example: 2018
+    Genres:
+        type: object
+        properties:
+          name:
+            type: string
+            example: Drama
+          description:
+            type: string
+            example: Drama Films are serious presentations or stories with settings or life situations that portray realistic characters in conflict with either themselves, others, or forces of nature. A dramatic film shows us human beings at their best, their worst, and everything in-between.
+    Directors:
+        type: object
+        properties:
+          name:
+            type: string
+            example: Danny Boyle
+          bio:
+            type: string
+            example: Daniel Francis Boyle is a British filmmaker, producer and writer from Radcliffe, Greater Manchester. He is known for directing 28 Days Later, 127 Hours, Trainspotting, T2 Trainspotting, Slumdog Millionaire, Millions, Shallow Grave, The Beach, Yesterday and Steve Jobs. He won many awards for Slumdog Millionaire.
+        

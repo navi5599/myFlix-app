@@ -9,6 +9,10 @@ const express = require('express'),
   Users = Models.User,
   cors = require('cors');
 
+const swaggerUI = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerJsDoc = YAML.load('./api-doc.yml')
+
 //mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connect( process.env.connection_url, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -20,6 +24,8 @@ app.use(express.static('public'));
 app.use(morgan('common'));
 
 app.use(cors());
+
+app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc));
 
 let auth = require('./auth')(app);
 
