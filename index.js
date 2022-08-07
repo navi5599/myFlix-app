@@ -16,8 +16,9 @@ const swaggerJsDoc = YAML.load('./api-doc.yml')
 //mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connect( process.env.connection_url, { useNewUrlParser: true, useUnifiedTopology: true });
 
-// app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static('public'));
 
