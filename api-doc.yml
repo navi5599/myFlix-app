@@ -56,7 +56,7 @@ paths:
                 $ref: '#/components/schemas/User'
         500:
           description: Internal server error- Something went wrong
-  /user/login:
+  /login:
     post:
       tags:
         - Users
