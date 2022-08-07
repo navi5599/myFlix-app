@@ -63,13 +63,13 @@ paths:
       summary: Logs user into the system
       description: ''
       parameters:
-        - name: username
+        - name: Username
           in: query
           description: The user name for login
           required: true
           schema:
             type: string
-        - name: password
+        - name: Password
           in: query
           description: The password for login in clear text
           required: true
