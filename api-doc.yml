@@ -27,9 +27,9 @@ paths:
       description: This endpoint allows users to register
       requestBody:
         description: Created user object
-        content: 
+        content:
           application/json:
-            schema: 
+            schema:
               $ref: '#/components/schemas/User'
       responses:
         200:
@@ -91,9 +91,9 @@ paths:
           schema:
             type: string
       requestBody:
-        content: 
+        content:
           application/json:
-            schema: 
+            schema:
               $ref: '#/components/schemas/User'
       responses:
         200:
@@ -125,7 +125,7 @@ paths:
     get:
       tags:
         - Users
-      summary: Search for a User 
+      summary: Search for a User
       description: This endpoint allows users to search for users by their username
       parameters:
         - name: username
@@ -143,7 +143,7 @@ paths:
         500:
           description: Internal server error- Something went wrong
   /users/{username}/movies/{MovieID}:
-    post:
+    put:
       tags:
         - Users
       summary: Add movies to favorites
@@ -303,7 +303,7 @@ components:
       items:
         type: object
         properties:
-          title: 
+          title:
             type: string
             example: Venom
           description:
@@ -336,7 +336,7 @@ components:
     singleMovie:
       type: object
       properties:
-        title: 
+        title:
           type: string
           example: Trainspotting
         description:
@@ -391,4 +391,3 @@ components:
       bearerFormat: JWT
 security:
   - bearerAuth: []
-        
