@@ -6,6 +6,14 @@ This is an REST API for application called myFlix that interacts with database a
 
 ---
 
+### Documentation:
+
+Visit link : [myFlix_swagger_doc](https://my-flix-app-1910.herokuapp.com/api-doc)
+
+ <img src="/img/swagger.png" alt="Alt text" style="display: inline-block; margin: 0 auto; max-width: 800px">
+
+---
+
 ### Tech used:
 
 ```
@@ -13,15 +21,8 @@ HTML
 CSS
 Node.js v16.15.1
 MongoDB v5.0.7
+Express
 ```
-
----
-
-### Instructions:
-
-> Please see /api-doc
-
- <img src="/img/swagger.png" alt="Alt text" style="display: inline-block; margin: 0 auto; max-width: 800px">
 
 ---
 
